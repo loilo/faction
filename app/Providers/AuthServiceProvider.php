@@ -235,6 +235,15 @@ class AuthServiceProvider extends ServiceProvider
             $request->getContent(),
         );
 
+        // We need to parse x-www-form-urlencoded requests manually
+        if (
+            $request->headers->get('Content-Type') ===
+            'application/x-www-form-urlencoded'
+        ) {
+            parse_str($request->getContent(), $post);
+            $psrRequest = $psrRequest->withParsedBody($post);
+        }
+
         $handler = new Handler(config('auth.github_webhook_secret'));
 
         try {
