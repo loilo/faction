@@ -6,6 +6,7 @@ use FS;
 use Illuminate\Support\Collection;
 use Log;
 use Str;
+use Symfony\Component\Process\Process;
 
 /**
  * An opinionated wrapper around Satis with a simplified API
@@ -367,8 +368,8 @@ class SatisWrapper
         $packages = $this->readExistingPackages();
         if ($packages->count()) {
             $this->prepareExecution(new PackageRepoMap());
-            $cmd = $this->generateCommand();
-            return $this->execute($cmd);
+            $command = $this->generateCommand();
+            return $this->execute($command);
         } else {
             return 0;
         }
@@ -447,12 +448,14 @@ class SatisWrapper
      * Generate the PHP command to achieve a certain Satis behaviour
      * The default Format is: [php-binary-path] [satis-binary-path] [sub-command] [satis-config-path] [output-path] [additional-args]
      * @param  array            $additionalArgs  Additional arguments to append to the command
-     * @return string                            The resulting command
+     * @return array                             The resulting command parts
      */
-    protected function generateCommand($additionalArgs = [])
+    protected function generateCommand($additionalArgs = []): array
     {
         // Assemble Satis command args
-        $args = array_map('escapeshellarg', [
+        return [
+            PHP_BINARY,
+
             // Set the timezone
             '-d',
             'date.timezone=' . config('app.timezone'),
@@ -473,10 +476,7 @@ class SatisWrapper
 
             // Certain packages to check for
             ...$additionalArgs,
-        ]);
-
-        // Assemble the whole command
-        return PHP_BINARY . ' ' . join(' ', $args) . ' 2>&1';
+        ];
     }
 
     /**
@@ -501,43 +501,38 @@ class SatisWrapper
     /**
      * Run a Satis command
      *
-     * @param string $command The Satis command to execute
+     * @param array $command The Satis command to execute
      * @return int The Satis command's exit code
      */
-    protected function execute($command)
+    protected function execute(array $command)
     {
-        Log::info('Execute Satis command', ['command' => $command]);
+        Log::info('Execute Satis command', ['command' => join(' ', $command)]);
 
-        // Configure sub process
-        $descriptor = [
-            ['pipe', 'r'], // stdin
-            ['pipe', 'w'], // stdout
-            ['pipe', 'w'], // stderr
-        ];
-
-        // Start command
-        $process = proc_open($command, $descriptor, $pipes, __DIR__, [
-            'COMPOSER_HOME' => $this->composerHome,
-        ]);
-
-        // Pipe command's stdout to our stdout
-        stream_copy_to_stream(
-            $pipes[1],
-            defined('STDOUT') ? STDOUT : fopen('php://stdout', 'wb'),
+        $process = new Process(
+            $command,
+            base_path(),
+            [
+                'COMPOSER_HOME' => $this->composerHome,
+            ],
+            null,
+            0,
         );
 
-        // Close command's stdout
-        fclose($pipes[1]);
+        $process->start();
+        $stdout = '';
+        $stderr = '';
+        foreach ($process as $type => $data) {
+            if ($process::OUT === $type) {
+                $stdout .= $data;
+            } else {
+                // $process::ERR === $type
+                $stderr .= $data;
+            }
 
-        // Save command's stderr
-        $stderr = stream_get_contents($pipes[2]);
-        fclose($pipes[2]);
+            echo $data;
+        }
 
-        // Close command's stdin
-        fclose($pipes[0]);
-
-        // Get exit code
-        $exitCode = proc_get_status($process)['exitcode'];
+        $exitCode = $process->getExitCode();
 
         // If we got an error, show it
         if ($exitCode !== -1 && $exitCode !== 0) {
@@ -546,9 +541,6 @@ class SatisWrapper
                 'code' => $exitCode,
             ]);
         }
-
-        // Close command's process
-        proc_close($process);
 
         if ($exitCode !== -1) {
             $this->splitPackagesJson();

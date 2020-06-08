@@ -29,6 +29,7 @@
     "radic/blade-extensions": "^7.4",
     "scrivo/highlight.php": "v9.18.1.1",
     "spatie/laravel-responsecache": "^6.6",
+    "symfony/process": "^5.1",
     "symfony/psr-http-message-bridge": "^2.0",
     "zendframework/zend-diactoros": "^2.2"
   },
