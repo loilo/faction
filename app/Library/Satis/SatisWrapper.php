@@ -6,6 +6,7 @@ use FS;
 use Illuminate\Support\Collection;
 use Log;
 use Str;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
 /**
@@ -452,9 +453,19 @@ class SatisWrapper
      */
     protected function generateCommand($additionalArgs = []): array
     {
+        static $phpBinary = null;
+        static $phpBinaryArgs = null;
+
+        if (is_null($phpBinary)) {
+            $binaryFinder = new PhpExecutableFinder();
+            $phpBinary = $binaryFinder->find(false);
+            $phpBinaryArgs = $binaryFinder->findArguments();
+        }
+
         // Assemble Satis command args
         return [
             PHP_BINARY,
+            ...$phpBinaryArgs,
 
             // Set the timezone
             '-d',
