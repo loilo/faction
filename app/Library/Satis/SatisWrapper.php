@@ -464,7 +464,7 @@ class SatisWrapper
 
         // Assemble Satis command args
         return [
-            PHP_BINARY,
+            $phpBinary,
             ...$phpBinaryArgs,
 
             // Set the timezone
