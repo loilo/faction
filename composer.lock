@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce150dd4923770da14577afb9acc3d95",
+    "content-hash": "844903c4cba1b04aa88d8cff0d7c6458",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2156,16 +2156,16 @@
         },
         {
             "name": "loilo/github-webhook-handler",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/loilo/github-webhook-handler.git",
-                "reference": "42587c17bf661df61cce70273cfee4f6c072f503"
+                "reference": "0e96c3a3a347dcba5b7068ee7cf5c87a23c05e2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/loilo/github-webhook-handler/zipball/42587c17bf661df61cce70273cfee4f6c072f503",
-                "reference": "42587c17bf661df61cce70273cfee4f6c072f503",
+                "url": "https://api.github.com/repos/loilo/github-webhook-handler/zipball/0e96c3a3a347dcba5b7068ee7cf5c87a23c05e2e",
+                "reference": "0e96c3a3a347dcba5b7068ee7cf5c87a23c05e2e",
                 "shasum": ""
             },
             "require": {
@@ -2196,7 +2196,7 @@
                 }
             ],
             "description": "Validate and utilize GitHub webhooks",
-            "time": "2020-04-19T12:58:52+00:00"
+            "time": "2020-06-08T13:12:41+00:00"
         },
         {
             "name": "loilo/node-path",

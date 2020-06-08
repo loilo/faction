@@ -21,7 +21,7 @@
     "laravel/socialite": "^4.3",
     "laravel/tinker": "^2.0",
     "loilo/fuse": "^3.6",
-    "loilo/github-webhook-handler": "^1.0",
+    "loilo/github-webhook-handler": "^1.0.1",
     "loilo/node-path": "^1.0",
     "loilo/x-filesystem": "^1.1",
     "matthewbdaly/laravel-etag-middleware": "^1.3",
