@@ -139,7 +139,7 @@ class Setup extends Command
             ) {
                 $this->output->writeln([
                     sprintf(
-                        '💡 To keep packages updated automatically, a webhook to the <fg=cyan>%s/github</> endpoint is needed.',
+                        '💡 To keep packages updated automatically, a webhook to the <fg=cyan>%s/webhook</> endpoint is needed.',
                         Str::unfinish($envVars['APP_URL'], '/'),
                     ),
                     sprintf(

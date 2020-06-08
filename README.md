@@ -67,7 +67,7 @@ These are the steps to take to set up a Faction app in production mode.
 
   <img src="readme-settings-oauth.png" width="500" alt="Screenshot from GitHub OAuth app UI">
 
-- Create an organization-wide webhook in your GitHub organization settings pointing to the `/github` endpoint of your Faction app. Choose a secure, random secret and select the following individual events for the webhook:
+- Create an organization-wide webhook in your GitHub organization settings pointing to the `/webhook` endpoint of your Faction app. Choose a secure, random secret and select the following individual events for the webhook:
 
   - Branch or tag creation
   - Branch or tag deletion
