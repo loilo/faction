@@ -1,0 +1,4 @@
+<form action="/" method="get" class="search-form" data-controller="search" data-action="search#open keydown@document->search#initializeSearchHandler">
+<input type="search" name="search" class="search-input" data-target="search.input list.searchInput" data-action="input->search#query keydown@document->search#shortcutHandler keydown->list#focusFirstPackage keydown->search#leave focus->search#scrollToTop" placeholder="@lang('messages.search.placeholder')" value="{{ $searchQuery }}"{{ !empty($searchQuery) ? ' autofocus' : '' }}>
+<span class="search-results" data-target="list.resultsNum"><?= $searchResults ?></span>
+</form>

@@ -1,0 +1,21 @@
+arrowParens: avoid
+bracketSpacing: true
+htmlWhitespaceSensitivity: css
+insertPragma: false
+jsxBracketSameLine: false
+jsxSingleQuote: false
+printWidth: 80
+proseWrap: preserve
+requirePragma: false
+semi: false
+singleQuote: true
+tabWidth: 2
+trailingComma: all
+useTabs: false
+
+overrides:
+  - files: '*.php'
+    options:
+      phpVersion: '7.4'
+      tabWidth: 4
+      trailingCommaPHP: true

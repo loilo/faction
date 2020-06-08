@@ -1,0 +1,26 @@
+; Queue worker using supervisord
+; ------------------------------
+;
+; This is an example configuration for the Composer
+; repo queue running on supervisord.
+; Make adjustments to this file and put a copy to:
+; /etc/supervisor/conf.d/composer-repo-queue.conf
+;
+; Then run the following commands to enable service:
+; sudo supervisorctl reread
+; sudo supervisorctl update
+; sudo supervisorctl start 'composer-repo-queue:*'
+;
+; Note: If you're setting up supervisor on macOS, paths
+; and instructions are very likely to be different.
+
+[program:composer-repo-queue]
+process_name=%(program_name)s_%(process_num)02d
+command=/usr/bin/php /path/to/project/artisan queue:work --sleep=3 --tries=3 --queue=satis,frontend,readme
+autostart=true
+autorestart=true
+user=www-data
+numprocs=1
+redirect_stderr=true
+stdout_logfile=/path/to/project/storage/logs/queue.log
+stopwaitsecs=3600

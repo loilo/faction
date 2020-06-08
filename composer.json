@@ -1,0 +1,96 @@
+{
+  "name": "loilo/faction",
+  "type": "project",
+  "description": "A single-user private Composer repository",
+  "keywords": [
+    "framework",
+    "laravel"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^7.4",
+    "composer/satis": "dev-master#ceb8b15e54e766dd5b0995c349c670b884bc3706",
+    "composer/semver": "^1.5",
+    "fideloper/proxy": "^4.2",
+    "fruitcake/laravel-cors": "^1.0",
+    "genealabs/laravel-model-caching": "*",
+    "graham-campbell/github": "^9.1",
+    "guzzlehttp/guzzle": "^6.5",
+    "jenssegers/model": "^1.3",
+    "laravel/framework": "^7.0",
+    "laravel/socialite": "^4.3",
+    "laravel/tinker": "^2.0",
+    "loilo/fuse": "^3.6",
+    "loilo/github-webhook-handler": "^1.0",
+    "loilo/node-path": "^1.0",
+    "loilo/x-filesystem": "^1.1",
+    "matthewbdaly/laravel-etag-middleware": "^1.3",
+    "php-http/guzzle6-adapter": "^2.0",
+    "radic/blade-extensions": "^7.4",
+    "scrivo/highlight.php": "v9.18.1.1",
+    "spatie/laravel-responsecache": "^6.6",
+    "symfony/psr-http-message-bridge": "^2.0",
+    "zendframework/zend-diactoros": "^2.2"
+  },
+  "require-dev": {
+    "barryvdh/laravel-debugbar": "^3.2",
+    "barryvdh/laravel-ide-helper": "^2.7.0",
+    "facade/ignition": "^2.0",
+    "fzaninotto/faker": "^1.9.1",
+    "mockery/mockery": "^1.3.1",
+    "nunomaduro/collision": "^4.1",
+    "phpunit/phpunit": "^8.5"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "process-timeout": 0,
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    },
+    "classmap": [
+      "database/seeds",
+      "database/factories"
+    ],
+    "files": [
+      "app/Helpers/helpers.php",
+      "app/Helpers/view-helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
+    ],
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "npm ci"
+    ],
+    "post-create-project-cmd": [
+      "@php artisan key:generate --ansi",
+      "npm run production",
+      "@php artisan migrate --force"
+    ],
+    "self-update": [
+      "git pull",
+      "composer install",
+      "npm ci",
+      "npm run production"
+    ]
+  }
+}

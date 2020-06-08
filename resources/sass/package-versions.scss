@@ -1,0 +1,109 @@
+.versions-list {
+  --size-factor: 1;
+  --graph-color: #e9e6ea;
+
+  display: grid;
+  grid-gap: var(--line-margin);
+  grid-template-columns:
+    calc(var(--line-offset) - var(--card-padding) - var(--line-margin))
+    var(--line-width) 1fr 1.3fr;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  &__item {
+    display: contents;
+    padding-bottom: 0.25em;
+    padding-left: 0;
+    position: relative;
+
+    &--type-minor,
+    &--type-major {
+      .versions-list {
+        &__marker::before {
+          background: white;
+          border-color: var(--graph-color);
+          --size-factor: 1.25;
+        }
+
+        &__version-link {
+          .link {
+            font-size: 1.25em;
+          }
+        }
+      }
+    }
+  }
+
+  &__time {
+    grid-column: 1 / span 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 0.85em;
+    font-weight: 400;
+    color: #a19ea2;
+  }
+
+  &__marker {
+    grid-column: 2 / span 1;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: calc(0.75em * var(--size-factor));
+      height: calc(0.75em * var(--size-factor));
+      background: var(--graph-color);
+      border: var(--line-width) solid white;
+      border-radius: 50%;
+      box-sizing: border-box;
+      transform: translateX(-50%) translateX(calc(var(--line-width) / 2))
+        translateY(-50%);
+    }
+  }
+
+  &__version-link {
+    grid-column: 3 / span 1;
+  }
+
+  &__actions {
+    grid-column: 4 / span 1;
+
+    display: flex;
+    align-items: center;
+    color: #706773;
+    font-size: 0.85em;
+  }
+
+  &__actions &__link {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-right: 1em;
+
+    &:hover {
+      color: #ad63c7;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    @at-root .no-js &:focus,
+      &.focus-ring:focus {
+      box-shadow: 0 0 0 2px currentColor;
+    }
+
+    svg {
+      margin-right: 0.25em;
+    }
+  }
+
+  &__releases-link {
+    font-size: calc(1em * var(--size-factor));
+  }
+}

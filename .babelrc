@@ -1,0 +1,15 @@
+{
+  "plugins": ["@babel/plugin-proposal-class-properties"],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": "ff 60, chrome 69, safari 11"
+        },
+        "useBuiltIns": "usage"
+      }
+    ]
+  ]
+}

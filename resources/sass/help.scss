@@ -1,0 +1,21 @@
+.keyboard-shortcuts {
+  margin-top: 1.5em;
+
+  > :first-child {
+    margin-bottom: 0.5em;
+  }
+
+  @media (min-width: 768px) {
+    display: flex;
+    margin: 1em 0;
+    padding-top: 1em;
+
+    &:not(:first-child) {
+      border-top: 2px solid #f6f8fa;
+    }
+
+    > :first-child {
+      flex-basis: 40%;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+# Queue worker using systemd
+# --------------------------
+#
+# This is an example configuration for the Composer
+# repo queue running on systemd.
+# Make adjustments to this file and put a copy to:
+# /etc/systemd/system/composer-repo-queue.service
+#
+# Then run the following command to enable service:
+# systemctl enable composer-repo-queue.service
+
+[Unit]
+Description=Private Composer queue worker
+
+[Service]
+User=www-data
+Group=www-data
+Restart=always
+ExecStart=/usr/bin/php /path/to/project/artisan queue:work --sleep=3 --tries=3 --queue=satis,frontend,readme
+
+# Only uncomment the following if you're running systemd version >= 240
+# StandardOutput=append:/path/to/project/storage/logs/queue.log
+# StandardError=append:/path/to/project/storage/logs/queue.log
+
+[Install]
+WantedBy=multi-user.target

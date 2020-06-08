@@ -1,0 +1,89 @@
+.toast {
+  position: fixed;
+  background-color: rgba(45, 54, 64, 0.9);
+  color: #e5f5ff;
+  border-radius: 3px;
+  left: 50%;
+  text-align: center;
+  padding: 10px 20px;
+  opacity: 0;
+  z-index: 99999;
+  transition: transform 0.25s, opacity 0.25s, top 0.25s;
+  box-sizing: border-box;
+  user-select: none;
+  font-size: 0.95em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.toast--bottom {
+  bottom: 50px;
+  transform: translateX(-50%) translateY(50px);
+}
+
+.toast--bottom.toast--shown {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast--bottom.toast--edge {
+  bottom: 0;
+}
+
+.toast--top {
+  top: 50px;
+  transform: translateX(-50%) translateY(-50px);
+}
+
+.toast--top.toast--shown {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast--top.toast--edge {
+  top: 0;
+}
+
+.toast--center {
+  top: 0;
+  transform: translateX(-50%) translateY(-50px);
+}
+
+.toast--center.toast--shown {
+  opacity: 1;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.toast--edge {
+  border-radius: 0;
+  width: 100%;
+  text-align: left;
+}
+
+@media screen and (min-width: 40rem) {
+  .toast:not(.toast--edge) {
+    max-width: 25rem;
+  }
+}
+
+.toast--error {
+  background-color: #d92644;
+  color: white;
+}
+
+.toast--success {
+  background-color: #08b25a;
+  color: white;
+}
+
+.toast--warning {
+  background-color: #ffc661;
+  color: var(--foreground);
+}
+
+.toast--info {
+  background-color: #005cc5;
+  color: white;
+}

@@ -1,0 +1,22 @@
+.dependency-list {
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.6em;
+    color: #ada8af;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  tr:first-child td {
+    padding-top: 0.6em;
+  }
+
+  &__separator {
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+  }
+}
