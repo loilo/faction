@@ -211,6 +211,13 @@ class HookHandler
      */
     public function execute()
     {
+        if (!$this->canBeHandled()) {
+            Log::debug('Ignored unhandled webhook event', [
+                'event' => $this->delivery->event(),
+            ]);
+            return;
+        }
+
         $repoName = $this->repository();
         $satisResult = null;
 
