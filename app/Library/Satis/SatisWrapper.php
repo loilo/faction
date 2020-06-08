@@ -521,7 +521,10 @@ class SatisWrapper
         ]);
 
         // Pipe command's stdout to our stdout
-        stream_copy_to_stream($pipes[1], STDOUT);
+        stream_copy_to_stream(
+            $pipes[1],
+            defined('STDOUT') ? STDOUT : fopen('php://stdout', 'wb'),
+        );
 
         // Close command's stdout
         fclose($pipes[1]);
