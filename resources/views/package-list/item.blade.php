@@ -13,7 +13,11 @@
     @endif
     <div class="package__updated">
         <img src="/img/groups/{{ $package->group->id }}/history.svg" alt="" class="package__updated-icon">
-        {{ $package->lastModified->diffForHumans() }}
+        {{--
+          Don't change the class of the following element without considering
+          what the App\Library\ResponseCache\LatestChangeReplacer class does.
+        --}}
+        <time class="package__updated-time" datetime="{{ $package->lastModified->toIso8601String() }}">{{ $package->lastModified->diffForHumans() }}</time>
 
         {{--
           This adds additional note when the last modification

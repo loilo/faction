@@ -95,7 +95,10 @@ return [
     |
     */
 
-    'replacers' => [\Spatie\ResponseCache\Replacers\CsrfTokenReplacer::class],
+    'replacers' => [
+        \Spatie\ResponseCache\Replacers\CsrfTokenReplacer::class,
+        \App\Library\ResponseCache\LatestChangeReplacer::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------
