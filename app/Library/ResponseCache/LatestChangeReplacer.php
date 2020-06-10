@@ -8,6 +8,10 @@ use DOMNode;
 use Spatie\ResponseCache\Replacers\Replacer;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * This response cache replacer takes care of the "last updated" diff
+ * in the package overview.
+ */
 class LatestChangeReplacer implements Replacer
 {
     public function prepareResponseToCache(Response $response): void
@@ -16,6 +20,8 @@ class LatestChangeReplacer implements Replacer
             return;
         }
 
+        // Replace the content of all <time> elements holding the
+        // "package__updated-time" class with an easy-to-replace token.
         $manipulatedHtml = $this->manipulateHtml(
             $response->getContent(),
             function (DOMNode $node) {
