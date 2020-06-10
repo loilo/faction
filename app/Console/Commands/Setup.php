@@ -106,10 +106,13 @@ class Setup extends Command
                     env('REPOSITORY_PACKAGE_VENDOR'),
                 $validateName,
             );
-            $envVars['REPOSITORY_GITHUB_ORG'] = $this->output->ask(
-                'Which <fg=cyan>GitHub organization</> owns the repositories of the listed packages?',
-                $envVars['REPOSITORY_GITHUB_ORG'] ??
-                    env('REPOSITORY_GITHUB_ORG'),
+            $envVars['REPOSITORY_GITHUB_LOGIN'] = $this->output->ask(
+                'Which <fg=cyan>GitHub organization/user</> owns the repositories of the listed packages?',
+                $envVars['REPOSITORY_GITHUB_LOGIN'] ??
+                    env(
+                        'REPOSITORY_GITHUB_LOGIN',
+                        $envVars['REPOSITORY_PACKAGE_VENDOR'],
+                    ),
                 $validateName,
             );
 
@@ -145,7 +148,7 @@ class Setup extends Command
                     sprintf(
                         'Such an organization-wide webhook can be set up in the GitHub %s.',
                         $this->createLink(
-                            "https://github.com/organizations/{$envVars['REPOSITORY_GITHUB_ORG']}/settings/hooks",
+                            "https://github.com/organizations/{$envVars['REPOSITORY_GITHUB_LOGIN']}/settings/hooks",
                             'organization settings',
                         ),
                     ),
@@ -182,7 +185,7 @@ class Setup extends Command
                     sprintf(
                         'This can be done in the GitHub %s.',
                         $this->createLink(
-                            "https://github.com/organizations/{$envVars['REPOSITORY_GITHUB_ORG']}/settings/applications",
+                            "https://github.com/organizations/{$envVars['REPOSITORY_GITHUB_LOGIN']}/settings/applications",
                             'organization settings',
                         ),
                     ),
@@ -191,7 +194,7 @@ class Setup extends Command
                 $orgAccessControlEnabled = $this->output->confirm(
                     sprintf(
                         'Do you want to add an OAuth app to restrict Faction access to only members of <fg=cyan>%s</>?',
-                        $envVars['REPOSITORY_GITHUB_ORG'],
+                        $envVars['REPOSITORY_GITHUB_LOGIN'],
                     ),
                     $orgAccessControlEnabled ?? true,
                 );
@@ -209,9 +212,9 @@ class Setup extends Command
 
             if ($orgAccessControlEnabled) {
                 $envVars['AUTH_GITHUB_ORGS_WHITELIST'] = empty(
-                    env('REPOSITORY_GITHUB_ORG')
+                    env('REPOSITORY_GITHUB_LOGIN')
                 )
-                    ? $envVars['REPOSITORY_GITHUB_ORG']
+                    ? $envVars['REPOSITORY_GITHUB_LOGIN']
                     : env('AUTH_GITHUB_ORGS_WHITELIST');
 
                 $envVars['GITHUB_CLIENT_ID'] = $this->output->ask(
@@ -259,7 +262,7 @@ class Setup extends Command
                 <fg=green>Environment:</>         {$environmentDecorated[$envVars['APP_ENV']]}
                 <fg=green>URL:</>                 {$envVars['APP_URL']}
                 <fg=green>Package vendor:</>      {$envVars['REPOSITORY_PACKAGE_VENDOR']}
-                <fg=green>GitHub organization:</> {$envVars['REPOSITORY_GITHUB_ORG']}
+                <fg=green>GitHub organization:</> {$envVars['REPOSITORY_GITHUB_LOGIN']}
                 </>
                 <fg=yellow>GitHub Credentials</>
                 <fg=green>GitHub access token:</>       {$envVars['REPOSITORY_GITHUB_TOKEN']}
@@ -308,7 +311,7 @@ class Setup extends Command
 
         if ($firstConfiguration) {
             $this->output->writeln(
-                'You\'re now ready to initialize your Faction installation. Run <fg=cyan>php artisan faction:initialize-repository</> to scan your GitHub organization for packages.',
+                'You\'re now ready to initialize your Faction installation. Run <fg=cyan>php artisan faction:scan-org</> to scan your GitHub organization for packages.',
             );
 
             $this->output->block(

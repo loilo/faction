@@ -12,7 +12,7 @@ use Satis;
  * configured GitHub organization
  * Depending on the number of GitHub repos, this may take a while
  */
-class InitializeRepository extends Command
+class ScanOrganization extends Command
 {
     use PrintsProgress;
 
