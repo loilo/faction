@@ -10,7 +10,7 @@ return [
     |
     */
 
-    'public' => env('PUBLIC', env('APP_ENV') !== 'local'),
+    'public' => env('PUBLIC', env('APP_ENV') === 'local'),
 
     /*
     |--------------------------------------------------------------------------
