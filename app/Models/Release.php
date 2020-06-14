@@ -56,34 +56,41 @@ class Release extends Helpers\MemoizingModel
              * @var \Illuminate\Support\Collection
              */
             $releases = static::where('name', $packageName)->get();
-            $versions = $releases->pluck('version');
 
+            $latestRelease = null;
             if (Str::startsWith($versionConstraint, '@')) {
-                $latestVersion = $versions
+                $latestRelease = $releases
                     ->filter(
-                        fn(Version $version) => $version->matchesMinStability(
+                        fn(
+                            Release $release
+                        ) => $release->version->matchesMinStability(
                             substr($versionConstraint, 1),
                         ),
                     )
-                    ->sort(fn(Version $a, Version $b) => $a->sortCompare($b))
+                    ->sort(function (Release $a, Release $b) {
+                        if (!$a->version->isSemver && !$b->version->isSemver) {
+                            return $a->time->getTimestamp() <=>
+                                $b->time->getTimestamp();
+                        } else {
+                            return $a->version->sortCompare($b->version);
+                        }
+                    })
                     ->last();
             } else {
                 $latestVersion = Version::getMaxSatisfying(
-                    $versions,
+                    $releases->pluck('version'),
                     $versionConstraint,
                 );
+
+                if (!is_null($latestVersion)) {
+                    $latestRelease = $releases->first(
+                        fn(Release $release) => $release->version
+                            ->originalString === $latestVersion->originalString,
+                    );
+                }
             }
 
-            if (is_null($latestVersion)) {
-                return null;
-            }
-
-            $release = $releases->first(
-                fn(Release $release) => $release->version->originalString ===
-                    $latestVersion->originalString,
-            );
-
-            return $release;
+            return $latestRelease;
         });
     }
 
