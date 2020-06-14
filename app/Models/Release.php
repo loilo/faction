@@ -10,6 +10,8 @@ use Str;
  * A release points to a certain commit of a package.
  * It may tagged as a stable ("0.6.2") or unstable ("1.0.4-beta.3")
  * semver release or point to a branch ("dev-master").
+ *
+ * @property Version $version
  */
 class Release extends Helpers\MemoizingModel
 {
