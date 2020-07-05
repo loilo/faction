@@ -94,7 +94,7 @@ These are the steps to take to set up a Faction app in production mode.
 
 ### Configuration
 
-Run the setup command. It will guide your through a Q&A to pre-fill your `.env` file:
+Run the setup command. It will guide you through a Q&A to pre-fill your `.env` file:
 
 ```bash
 php artisan faction:setup
