@@ -166,6 +166,8 @@ Faction supports collecting packages in configured groups. The affiliation with 
 
 This feature is basically a workaround to GitHub lacking a proper way to organize packages (e.g. in folders).
 
+Groups are configured as `package_groups` in the [`config/app.php`](config/app.php) configuration file.
+
 ### Authentication
 
 Faction provides three levels of authentication it handles in order. As soon as a user can be identified through one process, the following ones are skipped and the user may proceed:
@@ -193,9 +195,9 @@ There is:
 
   This is usually fast enough, but it may be useful to know that this command actually fully wipes and rebuilds the package database.
 
-- a **database-backed response cache**. Since the Faction frontend is (apart from the authentication part) stateless, plain HTML responses can be cached and delivered for subsequent requests.
+- a **database-backed response cache**. Since the Faction frontend is (apart from the authentication part) stateless, plain HTML responses can be cached indefinitely until a package or faction itself is updated.
 
-  This cache is only cleared partly when a package is updated. To wipe it fully, run:
+  This cache is only cleared partially when a package is updated. To wipe it fully, run:
 
   ```bash
   php artisan response:clear
@@ -219,9 +221,9 @@ To avoid this, the webhook endpoint executes its work as [queued jobs](https://l
 
 There is not one but three queues in Faction which all run on the same worker process. They are assigned different priorities and executed in the order listed below:
 
-1. **`satis`:** This executes the necessary Satis tasks.
+1. **`satis`:** This executes the necessary Satis tasks for adding, removing or updating packages.
 2. **`frontend`:** This clears and rebuilds the caches holding the Faction frontend. When a jobs is added to this queue, all queued (and not currently executing) `frontend` jobs are cancelled.
-3. **`readme`:** When a package broadcasts itself being updated through a webhook, Faction will try to re-scan its readme if necessary.
+3. **`readme`:** When a package broadcasts itself being updated through a webhook, Faction will try to re-scan its readme if necessary. This is some kind of eager evaluation which would be done anyway as soon as someone opens the readme, therefore its priority is lowest.
 
 #### Development
 
