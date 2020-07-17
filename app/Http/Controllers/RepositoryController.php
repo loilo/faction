@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Package;
+use Carbon\Carbon;
 use FS;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -56,12 +57,25 @@ class RepositoryController extends Controller
 
         try {
             if (is_null($query)) {
-                $data = FS::readFile($path . '/packages.json');
+                $file = "$path/packages.json";
             } else {
-                $data = FS::readFile($path . '/p/' . $query);
+                $file = "$path/p/$query";
             }
 
-            return new JsonResponse($data, 200, [], true);
+            $data = FS::readFile($file);
+            $lastModified = Carbon::createFromTimestamp(filemtime($file));
+
+            return new JsonResponse(
+                $data,
+                200,
+                [
+                    'ETag' => substr(md5($data), 0, 10),
+                    'Last-Modified' => $lastModified->format(
+                        'D, j M Y H:i:s T',
+                    ),
+                ],
+                true,
+            );
         } catch (\Exception $e) {
             return response()->setStatusCode(404);
         }
