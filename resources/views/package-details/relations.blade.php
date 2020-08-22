@@ -19,7 +19,7 @@
   <tr>
     <td>
       @if (is_null($link))
-      {{ $dependency->name }}
+      <span class="dependency-list__unlinked-dependency">{{ $dependency->name }}</span>
       @else
       <a href="{{ $link }}" class="link">{{ $dependency->name }}</a>
       @endif
@@ -44,7 +44,7 @@
   <tr>
     <td>
       @if (is_null($link))
-      {{ $dependency->name }}
+      <span class="dependency-list__unlinked-dependency">{{ $dependency->name }}</span>
       @else
       <a href="{{ $link }}" class="link">{{ $dependency->name }}</a>
       @endif
