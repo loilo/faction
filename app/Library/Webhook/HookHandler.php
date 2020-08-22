@@ -248,6 +248,20 @@ class HookHandler
                     'name' => $repoName,
                 ]);
 
+                if (in_array($this->name(), ['delete-branch', 'delete-tag'])) {
+                    // Satis offers no way to delete refs so we need to
+                    // remove the whole package and re-add it
+                    Log::info(
+                        'Removing repository in preparation to delete a ref',
+                    );
+
+                    if (Satis::removeRepo($repoName) !== false) {
+                        Log::info('Successfully removed repository');
+                    } else {
+                        Log::info('Repository has already been removed');
+                    }
+                }
+
                 $satisResult = Satis::updateRepo(
                     $repoName,
                     config('app.repository.github_org'),
