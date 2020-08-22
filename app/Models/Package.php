@@ -69,7 +69,8 @@ class Package extends Helpers\MemoizingModel
                 } else {
                     return $a->version->sortCompare($b->version);
                 }
-            });
+            })
+            ->values();
     }
 
     public function findRelease(string $constraint)
