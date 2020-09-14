@@ -15,7 +15,30 @@
     }
 
     > :first-child {
-      flex-basis: 40%;
+      flex-basis: 30%;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.table {
+  th,
+  td {
+    display: block;
+  }
+
+  td {
+    padding-top: 0;
+  }
+
+  @media (min-width: 768px) {
+    th,
+    td {
+      display: table-cell;
+    }
+
+    td {
+      padding-top: 1em;
     }
   }
 }
