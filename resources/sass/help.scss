@@ -22,6 +22,8 @@
 }
 
 .table {
+  flex-grow: 1;
+
   th,
   td {
     display: block;
