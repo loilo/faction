@@ -213,6 +213,7 @@ $RECYCLE.BIN/
 /public/logos
 /public/mix-manifest.json
 /public/*.worker.js
+/public/*.worker.js.map
 /public/*.worker.js.LICENSE.txt
 
 /storage/*.key
