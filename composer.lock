@@ -4067,6 +4067,9 @@
                 "psr",
                 "psr-3"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/log/tree/1.1.4"
+            },
             "time": "2021-05-03T11:20:27+00:00"
         },
         {
@@ -7190,16 +7193,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v5.4.19",
+            "version": "v5.4.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "2944bbc23f5f8da2b962fbcbf7c4a6109b2f4b7b"
+                "reference": "42f18f170aa86d612c3559cfb3bd11a375df32c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/2944bbc23f5f8da2b962fbcbf7c4a6109b2f4b7b",
-                "reference": "2944bbc23f5f8da2b962fbcbf7c4a6109b2f4b7b",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/42f18f170aa86d612c3559cfb3bd11a375df32c8",
+                "reference": "42f18f170aa86d612c3559cfb3bd11a375df32c8",
                 "shasum": ""
             },
             "require": {
@@ -7208,12 +7211,12 @@
                 "symfony/polyfill-php80": "^1.16"
             },
             "conflict": {
-                "phpunit/phpunit": "<5.4.3",
                 "symfony/console": "<4.4"
             },
             "require-dev": {
                 "ext-iconv": "*",
                 "symfony/console": "^4.4|^5.0|^6.0",
+                "symfony/http-kernel": "^4.4|^5.0|^6.0",
                 "symfony/process": "^4.4|^5.0|^6.0",
                 "symfony/uid": "^5.1|^6.0",
                 "twig/twig": "^2.13|^3.0.4"
@@ -7258,6 +7261,9 @@
                 "debug",
                 "dump"
             ],
+            "support": {
+                "source": "https://github.com/symfony/var-dumper/tree/v5.4.48"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7272,7 +7278,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-16T10:52:33+00:00"
+            "time": "2024-11-08T15:21:10+00:00"
         },
         {
             "name": "symfony/var-exporter",
@@ -8643,25 +8649,28 @@
         },
         {
             "name": "maximebf/debugbar",
-            "version": "v1.16.2",
+            "version": "v1.23.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "40f375504a4dd8e59f779c3f3cac524777ddcde5"
+                "url": "https://github.com/php-debugbar/php-debugbar.git",
+                "reference": "4b3d5f1afe09a7db5a9d3282890f49f6176d6542"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/40f375504a4dd8e59f779c3f3cac524777ddcde5",
-                "reference": "40f375504a4dd8e59f779c3f3cac524777ddcde5",
+                "url": "https://api.github.com/repos/php-debugbar/php-debugbar/zipball/4b3d5f1afe09a7db5a9d3282890f49f6176d6542",
+                "reference": "4b3d5f1afe09a7db5a9d3282890f49f6176d6542",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1",
-                "psr/log": "^1.0",
-                "symfony/var-dumper": "^2.6|^3|^4|^5"
+                "php": "^7.2|^8",
+                "psr/log": "^1|^2|^3",
+                "symfony/var-dumper": "^4|^5|^6|^7"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5"
+                "dbrekelmans/bdi": "^1",
+                "phpunit/phpunit": "^8|^9",
+                "symfony/panther": "^1|^2.1",
+                "twig/twig": "^1.38|^2.7|^3.0"
             },
             "suggest": {
                 "kriswallsmith/assetic": "The best way to manage assets",
@@ -8671,7 +8680,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.16-dev"
+                    "dev-master": "1.23-dev"
                 }
             },
             "autoload": {
@@ -8700,7 +8709,12 @@
                 "debug",
                 "debugbar"
             ],
-            "time": "2020-04-16T09:05:52+00:00"
+            "support": {
+                "issues": "https://github.com/php-debugbar/php-debugbar/issues",
+                "source": "https://github.com/php-debugbar/php-debugbar/tree/v1.23.6"
+            },
+            "abandoned": "php-debugbar/php-debugbar",
+            "time": "2025-02-13T12:22:36+00:00"
         },
         {
             "name": "mockery/mockery",
